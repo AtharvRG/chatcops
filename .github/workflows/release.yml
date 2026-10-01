@@ -35,8 +35,11 @@ jobs:
       - name: Test
         run: pnpm test
 
+      # Trusted publishing (OIDC) needs npm 11.5.1 or newer. Stay on npm 11:
+      # npm 12 rejects unknown CLI flags, and pnpm passes --git-checks through
+      # to npm publish, so every publish fails with EUNKNOWNCONFIG on npm 12.
       - name: Ensure npm supports OIDC
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
 
       - name: Create Release PR or Publish
         id: changesets
