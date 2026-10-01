@@ -1,6 +1,6 @@
 {
   "name": "@chatcops/website",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,8 +15,8 @@
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.1",
     "@astrojs/starlight": "^0.34.0",
-    "@chatcops/core": "^0.3.0",
-    "@chatcops/server": "^0.3.0",
+    "@chatcops/core": "^0.2.0",
+    "@chatcops/server": "^0.2.0",
     "@chatcops/widget": "workspace:^",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^5.7.0",
