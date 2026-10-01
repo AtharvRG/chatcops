@@ -256,6 +256,9 @@
   overflow-wrap: break-word;
   font-size: 14px;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .cc-message-user {
@@ -305,6 +308,56 @@
 .cc-message ul, .cc-message ol {
   padding-left: 20px;
   margin: 4px 0;
+}
+
+.cc-message-actions {
+  display: flex;
+  align-items: center;
+}
+
+.cc-message-retry,
+.cc-message-regenerate {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid var(--cc-border);
+  border-radius: 6px;
+  color: var(--cc-text-secondary);
+  font-family: var(--cc-font);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.cc-message-retry:hover,
+.cc-message-regenerate:hover {
+  background: var(--cc-bg-input);
+  color: var(--cc-text);
+}
+
+.cc-message-retry svg,
+.cc-message-regenerate svg {
+  fill: currentColor;
+}
+
+.cc-message-regenerate {
+  opacity: 0;
+}
+
+.cc-message:hover .cc-message-regenerate {
+  opacity: 1;
+}
+
+.cc-message-retry {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.cc-message-retry:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 /* Typing indicator */
@@ -467,6 +520,126 @@
   justify-content: center;
   font-size: 10px;
   color: var(--cc-text-secondary);
+}
+
+/* Visibility utility */
+.cc-hidden {
+  display: none;
+}
+
+/* Messages wrapper (only present when pre-chat form is enabled) */
+.cc-messages-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Pre-chat form */
+.cc-prechat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cc-prechat-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cc-text);
+}
+
+.cc-prechat-subtitle {
+  font-size: 13px;
+  color: var(--cc-text-secondary);
+  margin-top: -8px;
+}
+
+.cc-prechat-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cc-prechat-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cc-prechat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cc-text);
+}
+
+.cc-prechat-label .cc-required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+.cc-prechat-input,
+.cc-prechat-select,
+.cc-prechat-textarea {
+  background: var(--cc-bg-input);
+  border: 1px solid var(--cc-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--cc-text);
+  font-family: var(--cc-font);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.cc-prechat-input:focus,
+.cc-prechat-select:focus,
+.cc-prechat-textarea:focus {
+  border-color: var(--cc-accent);
+}
+
+.cc-prechat-select {
+  appearance: auto;
+}
+
+.cc-prechat-textarea {
+  resize: none;
+  line-height: 1.5;
+}
+
+.cc-prechat-error {
+  font-size: 12px;
+  color: #ef4444;
+  min-height: 0;
+}
+
+.cc-prechat-error:empty {
+  display: none;
+}
+
+.cc-prechat-submit {
+  background: var(--cc-accent);
+  color: var(--cc-text);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: var(--cc-font);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin-top: 8px;
+}
+
+.cc-prechat-submit:hover {
+  background: var(--cc-accent-hover);
+}
+
+.cc-prechat-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Mobile */

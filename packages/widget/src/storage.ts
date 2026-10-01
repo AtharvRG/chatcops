@@ -4,6 +4,8 @@ interface StoredConversation {
     id: string;
     role: 'user' | 'assistant';
     content: string;
+    status?: 'streaming' | 'complete' | 'error';
+    errorType?: 'rate_limit' | 'network' | 'provider_error' | 'timeout';
     timestamp: number;
   }>;
   updatedAt: number;
@@ -30,7 +32,13 @@ export class ConversationStorage {
 
   save(conversation: StoredConversation): void {
     try {
-      localStorage.setItem(this.key, JSON.stringify(conversation));
+      const filtered = {
+        ...conversation,
+        messages: conversation.messages
+          .filter((m) => m.status !== 'error')
+          .map(({ status, ...message }) => message),
+      };
+      localStorage.setItem(this.key, JSON.stringify(filtered));
     } catch {
       // Storage full or unavailable
     }
@@ -55,6 +63,22 @@ export class ConversationStorage {
       return id;
     } catch {
       return crypto.randomUUID();
+    }
+  }
+
+  isPreChatCompleted(sessionId: string): boolean {
+    try {
+      return sessionStorage.getItem(`chatcops-prechat-${sessionId}`) === 'true';
+    } catch {
+      return false;
+    }
+  }
+
+  setPreChatCompleted(sessionId: string): void {
+    try {
+      sessionStorage.setItem(`chatcops-prechat-${sessionId}`, 'true');
+    } catch {
+      // Storage unavailable
     }
   }
 }

@@ -5,6 +5,7 @@ export interface ChatCopsServerConfig {
   provider: ProviderConfig;
   systemPrompt: string;
   tools?: ChatTool[];
+  toolTimeoutMs?: number;
   knowledge?: KnowledgeSource[];
   rateLimit?: { maxRequests: number; windowMs: number };
   webhooks?: WebhookConfig[];
@@ -16,6 +17,8 @@ export interface ChatCopsServerConfig {
 export const chatRequestSchema = z.object({
   conversationId: z.string().min(1).max(128),
   message: z.string().min(1).max(10000),
+  messageId: z.string().min(1).max(128).optional(),
+  regenerate: z.boolean().optional(),
   pageContext: z.object({
     url: z.string().url(),
     title: z.string().max(500),
@@ -23,6 +26,7 @@ export const chatRequestSchema = z.object({
     contentSnippet: z.string().max(2000).optional(),
   }).optional(),
   locale: z.string().max(10).optional(),
+  userData: z.record(z.string(), z.string().max(500)).optional(),
 });
 
 export type ValidatedChatRequest = z.infer<typeof chatRequestSchema>;
