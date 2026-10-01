@@ -1,5 +1,16 @@
 # @chatcops/widget
 
+## 0.4.0
+
+### Minor Changes
+
+- 5bc33eb: Add configurable pre-chat form for collecting user info before conversation. Supports text, email, select, and textarea fields with validation. Form data is sent to the server and injected into the system prompt.
+- b650792: Add retry and regenerate support for widget conversations, including assistant message regeneration, retryable error bubbles, and server-side conversation updates for regenerate requests.
+
+### Patch Changes
+
+- 45d02ae: Execute provider tool calls during chat loops so streaming and sync responses can continue after tool use. This also wires successful lead-capture tool executions into the server analytics, webhook flow, and widget lead-captured callbacks/events.
+
 ## 0.3.2
 
 ### Patch Changes
