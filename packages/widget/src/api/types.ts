@@ -1,6 +1,8 @@
 export interface WidgetChatRequest {
   conversationId: string;
   message: string;
+  messageId?: string;
+  regenerate?: boolean;
   pageContext?: {
     url: string;
     title: string;
@@ -8,6 +10,7 @@ export interface WidgetChatRequest {
     contentSnippet?: string;
   };
   locale?: string;
+  userData?: Record<string, string>;
 }
 
 export interface WidgetChatChunk {
@@ -15,5 +18,6 @@ export interface WidgetChatChunk {
   done?: boolean;
   error?: string;
   leadCaptured?: boolean;
+  leadData?: Record<string, unknown>;
   suggestedActions?: string[];
 }

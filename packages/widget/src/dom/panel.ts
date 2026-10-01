@@ -1,4 +1,4 @@
-import { Messages, type MessageData } from './messages.js';
+import { Messages, type MessageActions, type MessageData } from './messages.js';
 import { Input } from './input.js';
 
 const BOT_ICON = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`;
@@ -7,6 +7,7 @@ const CLOSE_ICON = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 export interface PanelOptions {
   position: 'bottom-right' | 'bottom-left';
   inline?: boolean;
+  preChatEnabled?: boolean;
   branding: {
     name: string;
     avatar?: string;
@@ -14,6 +15,7 @@ export interface PanelOptions {
   };
   placeholder: string;
   footerText: string;
+  messageActions?: MessageActions;
   onSend: (text: string) => void;
   onClose: () => void;
 }
@@ -23,6 +25,7 @@ export class Panel {
   private inline: boolean;
   messages: Messages;
   input: Input;
+  messagesContainer: HTMLElement;
 
   constructor(root: ShadowRoot, options: PanelOptions) {
     this.inline = options.inline ?? false;
@@ -68,8 +71,14 @@ export class Panel {
 
     this.el.appendChild(header);
 
-    // Messages
-    this.messages = new Messages(this.el);
+    if (options.preChatEnabled) {
+      this.messagesContainer = document.createElement('div');
+      this.messagesContainer.className = 'cc-messages-wrapper';
+      this.el.appendChild(this.messagesContainer);
+    } else {
+      this.messagesContainer = this.el;
+    }
+    this.messages = new Messages(this.messagesContainer, options.messageActions);
 
     // Input
     this.input = new Input(this.el, {
@@ -103,6 +112,14 @@ export class Panel {
 
   addMessage(msg: MessageData): HTMLDivElement {
     return this.messages.addMessage(msg);
+  }
+
+  hideMessages(): void {
+    this.messages.setVisible(false);
+  }
+
+  showMessages(): void {
+    this.messages.setVisible(true);
   }
 
   destroy(): void {
