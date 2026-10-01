@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "typescript": "^5.7.0",
-    "vitest": "^3.0.0",
+    "vitest": "^4.1.11",
     "@changesets/cli": "^2.27.0"
   },
   "engines": {
@@ -22,5 +22,16 @@
     "pnpm": ">=9"
   },
   "packageManager": "pnpm@9.15.0",
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "supportedArchitectures": {
+      "os": [
+        "current"
+      ],
+      "cpu": [
+        "current",
+        "wasm32"
+      ]
+    }
+  }
 }
