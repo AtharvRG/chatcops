@@ -1,5 +1,11 @@
 # @chatcops/widget
 
+## 0.3.2
+
+### Patch Changes
+
+- 19398fb: Only render markdown links with http, https, mailto, tel or relative URLs. Links with any other scheme, such as javascript: or data:, are shown as plain text.
+
 ## 0.3.1
 
 ### Patch Changes
